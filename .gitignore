@@ -1,8 +1,9 @@
-.vscode
 .vscode/*
-__pycache__
 __pycache__/*
 *.pyc
 node_modules/*
 npm-debug.log
 package-lock.json
+env/*
+build/*
+.env
