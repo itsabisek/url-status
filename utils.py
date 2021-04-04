@@ -42,7 +42,7 @@ def authenticate(service_func):
         password = request.authorization and request.authorization.password
         check_username = os.environ.get('AUTH_USER', "username")
         check_pass = os.environ.get("AUTH_PASS", "password")
-        logger.info(f"Authentication - {username is None} | {password is None} | {check_username is "username"} | {check_pass is "password"}")
+        logger.info(f"Authentication - {username is None} | {password is None} | {check_username is 'username'} | {check_pass is 'password'}")
         if not username == check_username or not password == check_pass:
             abort(403)
         return service_func(*args, **kwargs)
