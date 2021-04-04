@@ -6,14 +6,19 @@ import axios from "axios";
 import { SearchOutlined, CheckRounded, CloseRounded, WarningRounded } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 
+const { REACT_APP_AUTH_USER, REACT_APP_AUTH_PASS } = process.env;
+
 export const App = () => {
   const [iconState, setIconState] = useState("none");
   const onSearch = (searchString) => {
     axios({
       method: "get",
-      url: "http://127.0.0.1:5000/api/check",
+      url: "/api/check",
       params: {
         url: searchString,
+      },
+      headers: {
+        "Authorization": `Basic ${btoa(REACT_APP_AUTH_USER + ':' + REACT_APP_AUTH_PASS)}`
       },
     })
       .then((res) => {
