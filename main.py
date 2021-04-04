@@ -1,6 +1,7 @@
 import json
 import requests
 from flask import Flask, request
+from flask_cors import CORS
 
 STATUS_OK = 1
 STATUS_MALFORMED_QUERY_STRING = 2
@@ -8,8 +9,9 @@ STATUS_CRAWL_ERROR = 3
 RESPONSE_OK = 200
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"Origins": '*'}})
 
-@app.route("/check", methods=["GET"])
+@app.route("/api/check", methods=["GET"])
 def check():
     args = request.args
     if 'url' in args:
