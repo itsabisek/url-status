@@ -27,4 +27,4 @@ def check():
 @app.errorhandler(403)
 def forbidden_403(exec):
     logger.warning("Authenticaion failure!!")
-    return generate_payload(None, None, STATUS_CRAWL_ERROR), RESPONSE_UNAUTHORIZEDq
+    return generate_payload(None, None, STATUS_CRAWL_ERROR), RESPONSE_UNAUTHORIZED
