@@ -2,7 +2,10 @@ import os
 import json
 import requests
 import base64
+from logger_utils import bootstrap_logger
 from flask import request, abort
+
+logger = bootstrap_logger(__name__)
 
 STATUS_OK = 1
 STATUS_MALFORMED_QUERY_STRING = 2
@@ -18,7 +21,7 @@ def generate_payload(url, output, error):
             error=error
         )
     )
-    print(p)
+    logger.info(f"Dumping payload data {p}")
     return p
 
 def check_status(url):
@@ -28,8 +31,9 @@ def check_status(url):
         return url
     
     url = _append_protocol(url)
-    print(f"Making request - {url}")
+    logger.info(f"Making request to - {url}")
     resp = requests.get(url)
+    logger.info(f"Response - {resp}")
     return resp.status_code
 
 def authenticate(service_func):
@@ -38,6 +42,7 @@ def authenticate(service_func):
         password = request.authorization and request.authorization.password
         check_username = os.environ.get('AUTH_USER', "username")
         check_pass = os.environ.get("AUTH_PASS", "password")
+        logger.info(f"Authentication - {username is None} | {password is None} | {check_username is "username"} | {check_pass is "password"}")
         if not username == check_username or not password == check_pass:
             abort(403)
         return service_func(*args, **kwargs)
