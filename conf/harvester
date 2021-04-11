@@ -1,0 +1,15 @@
+server {
+	listen 80 default_server;
+	server_name _;
+	root /var/www/html/app/build;
+	index index.html index.htm
+	location / {
+		try_files $uri $uri/ =404;
+
+	}
+	location /api {
+		include proxy_params;
+		proxy_pass http://localhost:3000;
+	}
+	
+}
