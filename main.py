@@ -24,7 +24,7 @@ def check():
     logger.warning("Query string is either malformed or doesn't exists")
     return generate_payload(None, None, STATUS_MALFORMED_QUERY_STRING), RESPONSE_OK
 
-@app.errorhandler(403)
+@app.errorhandler(RESPONSE_UNAUTHORIZED)
 def forbidden_403(exec):
     logger.warning("Authenticaion failure!!")
     return generate_payload(None, None, STATUS_CRAWL_ERROR), RESPONSE_UNAUTHORIZED

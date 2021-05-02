@@ -44,6 +44,6 @@ def authenticate(service_func):
         check_pass = os.environ.get("AUTH_PASS", "password")
         logger.info(f"Authentication - {username is None} | {password is None} | {check_username is 'username'} | {check_pass is 'password'}")
         if not username == check_username or not password == check_pass:
-            abort(403)
+            abort(RESPONSE_UNAUTHORIZED)
         return service_func(*args, **kwargs)
     return wrapper
